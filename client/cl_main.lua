@@ -54,8 +54,6 @@ function ToggleVehicleLock()
 		return
 	end
 
-	
-
 	ESX.TriggerServerCallback("byyose:keyjobwh", function(canLock)
 		if canLock then
 			local lockStatus = GetVehicleDoorLockStatus(vehicle)
