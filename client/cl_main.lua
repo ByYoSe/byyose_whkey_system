@@ -1,3 +1,9 @@
+--[[
+	Script : ByYoSe WHKey system
+	Created by : ByYoSe
+]]
+
+
 ESX = exports['es_extended']:getSharedObject()
 
 local isRunningWorkaround = false
@@ -57,14 +63,26 @@ function ToggleVehicleLock()
 			if lockStatus == 1 then -- unlocked
 				SetVehicleDoorsLocked(vehicle, 2)
 				PlayVehicleDoorCloseSound(vehicle, 1)
-				exports['okokNotify']:Alert('', "Véhicule: <span style='color:#f05c5c'>vérrouiller</span>", 5000, 'success')
+				if ByYoSe.Config.Notify == "OKOKNotify" then
+					exports['okokNotify']:Alert('', "Véhicule: <span style='color:#f05c5c'>vérrouiller</span>", 5000, 'success')
+				elseif ByYoSe.Config.Notify == "ESX" then
+					ESX.ShowNotification("Véhicule: ~g~vérrouiller")
+				end
 			elseif lockStatus == 2 then -- locked
 				SetVehicleDoorsLocked(vehicle, 1)
 				PlayVehicleDoorOpenSound(vehicle, 0)
-				exports['okokNotify']:Alert('', "Véhicule: <span style='color:#47cf73'>déverrouiller</span>", 5000, 'success')
+				if ByYoSe.Config.Notify == "OKOKNotify" then
+					exports['okokNotify']:Alert('', "Véhicule: <span style='color:#47cf73'>déverrouiller</span>", 5000, 'success')
+				elseif ByYoSe.Config.Notify == "ESX" then
+					ESX.ShowNotification("Véhicule: ~r~déverrouiller")
+				end
 			end
 		else
-			exports['okokNotify']:Alert('', 'Ce véhicule ne vous appartient pas', 5000, 'error')
+			if ByYoSe.Config.Notify == "OKOKNotify" then
+				exports['okokNotify']:Alert('', 'Ce véhicule ne vous appartient pas.', 5000, 'error')
+			elseif ByYoSe.Config.Notify == "ESX" then
+				ESX.ShowNotification("Ce véhicule ne vous appartient pas.")
+			end
 		end
 	end, GetEntityModel(vehicle))
 end
